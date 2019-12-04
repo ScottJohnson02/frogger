@@ -16,3 +16,17 @@ body {
   display: flex;
   justify-content: center;
 }
+
+#background {
+  position: absolute;
+  height: 700px;
+  width: 700px;
+}
+
+#frogger {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  top: 0px;
+  left: 300px;
+}
