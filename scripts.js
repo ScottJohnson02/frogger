@@ -41,7 +41,10 @@ window.addEventListener("keydown", event => {
 // IDEA: BOTTOM IS OUTDATED CANVAS IDEAS
 /* const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+
+
 function drawBackground() {
+
   //grass
   ctx.fillStyle = 'lime';
   ctx.fillRect(0, 350, 700, 50);
@@ -86,6 +89,8 @@ let x = 10;
 let y = 350;
 let width = 50;
 let height = (700 / 11);
+
+
 function drawFrog() {
   ctx.drawImage(frog, sx, sy, swidth, sheight, x, y, width, height);
 }
@@ -107,6 +112,10 @@ window.addEventListener("keydown", event => {
       break;
   }
 });
+});
+
+
+
 function draw() {
   drawBackground();
   drawFrog();
