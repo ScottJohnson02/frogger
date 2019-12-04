@@ -5,7 +5,7 @@ let frog = new image(); frog.src = "frog.png";
 let sx = 0;
 let sy = 0;
 let swidth = 50;
-let sheight = (700/11);
+let sheight = 50;
 let x = 30;
 let y = 450;
 let width = 25;
