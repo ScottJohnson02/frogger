@@ -14,20 +14,37 @@ window.addEventListener("keydown", event => {
   let button = event.key;
   switch (button) {
     case "w":
-      froggerY = froggerY - 50;
-      updateFroggerPosition()
+      frogger.style.transform = "rotate(180deg)"
+      if (froggerY > 50) {
+        froggerY = froggerY - 50;
+        updateFroggerPosition()
+        break;
+      }
       break;
+
     case "a":
-      froggerX = froggerX - 75;
-      updateFroggerPosition()
+      frogger.style.transform = "rotate(90deg)"
+      if (froggerX > -300) {
+        froggerX = froggerX - 75;
+        updateFroggerPosition()
+      }
       break;
     case "s":
-      froggerY = froggerY + 50;
-      updateFroggerPosition()
+      frogger.style.transform = "rotate(0deg)"
+      if (froggerY < 650) {
+        froggerY = froggerY + 50;
+        updateFroggerPosition()
+        break
+      }
+
       break;
     case "d":
-      froggerX = froggerX + 75;
-      updateFroggerPosition()
+      frogger.style.transform = "rotate(270deg)"
+      if (froggerX < 300) {
+        froggerX = froggerX + 75;
+        updateFroggerPosition()
+        break
+      }
       break;
   }
 
