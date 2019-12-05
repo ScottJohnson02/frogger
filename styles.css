@@ -1,6 +1,5 @@
-canvas {
-  background-color: black;
-  margin-top: 50px;
+body {
+  background-color: green;
 }
 
 h1 {
@@ -8,9 +7,34 @@ h1 {
   text-align: center;
 }
 
-body {
-  background-color: green;
+////timer////
+#timer {
+  display: inline-table;
+  text-align: center;
+  height: 20px;
+  background: #777;
+  border-radius: 25px;
+  padding: 5px;
+  width: 50px;
 }
+
+#timer div {
+  text-align: center;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+#timer span {
+  display: inline-block;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.text {
+  padding: 5px;
+  font-size: 16px;
+}
+///////
 
 .game {
   display: flex;
@@ -29,8 +53,5 @@ body {
   position: relative;
   top: 0px;
   left: 300px;
-<<<<<<< HEAD
+  transform: 180;
 }
-=======
-}
->>>>>>> 62befcf742c959e77bbd89a221461049ad7da06c

@@ -33,7 +33,16 @@ window.addEventListener("keydown", event => {
 
 });
 
-
+//timer
+let timeleft = 20;
+let timer = setInterval(function(){
+  document.getElementById("second").innerHTML = timeleft + " seconds remaining";
+  timeleft -= 1;
+  if(timeleft <= 0){
+    clearInterval(timer);
+    document.getElementById("second").innerHTML = "Out Of Time"
+  }
+}, 1000);
 
 
 
