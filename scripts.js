@@ -1,7 +1,7 @@
 const frogger = document.getElementById('frogger')
-let froggerY = 650
+let froggerY = 645;
 frogger.style.top = froggerY + "px";
-let froggerX = 0;
+let froggerX = 325;
 frogger.style.left = froggerX + "px";
 
 function updateFroggerPosition() {
@@ -15,7 +15,7 @@ window.addEventListener("keydown", event => {
   switch (button) {
     case "w":
       frogger.style.transform = "rotate(180deg)"
-      if (froggerY > 50) {
+      if (froggerY > 0) {
         froggerY = froggerY - 50;
         updateFroggerPosition()
         break;
@@ -24,14 +24,14 @@ window.addEventListener("keydown", event => {
 
     case "a":
       frogger.style.transform = "rotate(90deg)"
-      if (froggerX > -300) {
+      if (froggerX > 25) {
         froggerX = froggerX - 75;
         updateFroggerPosition()
       }
       break;
     case "s":
       frogger.style.transform = "rotate(0deg)"
-      if (froggerY < 650) {
+      if (froggerY < 645) {
         froggerY = froggerY + 50;
         updateFroggerPosition()
         break
@@ -40,7 +40,7 @@ window.addEventListener("keydown", event => {
       break;
     case "d":
       frogger.style.transform = "rotate(270deg)"
-      if (froggerX < 300) {
+      if (froggerX < 625) {
         froggerX = froggerX + 75;
         updateFroggerPosition()
         break
@@ -49,6 +49,25 @@ window.addEventListener("keydown", event => {
   }
 
 });
+
+function largeTruckAnimation(speed) {
+  let elem = document.getElementsByClassName("largeTruck");
+  let pos = 1000;
+  let id = setInterval(frame, speed); //speed
+
+  function frame() {
+    for (let i = 0; i < elem.length; i++) {
+      pos--;
+      elem[i].style.left = pos - (i * 250) + 'px';
+      if (pos - (i * 250) <= -250) {
+        pos = 1000;
+      }
+    }
+
+  }
+}
+
+largeTruckAnimation(50);
 
 
 
