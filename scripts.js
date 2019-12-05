@@ -50,24 +50,31 @@ window.addEventListener("keydown", event => {
 
 });
 
-function largeTruckAnimation(speed) {
-  let elem = document.getElementsByClassName("largeTruck");
-  let pos = 1000;
+function animation(sprite, start, speed) {
+  sprite.style.left = start + 'px';
+  let pos = parseInt(sprite.style.left, 10);
   let id = setInterval(frame, speed); //speed
-
   function frame() {
-    for (let i = 0; i < elem.length; i++) {
-      pos--;
-      elem[i].style.left = pos - (i * 250) + 'px';
-      if (pos - (i * 250) <= -250) {
-        pos = 1000;
-      }
-    }
+    pos--;
+    sprite.style.left = pos + "px";
 
+    if (pos == -100) {
+      pos = 700;
+    }
   }
 }
 
-largeTruckAnimation(50);
+function carAnimation(className, speed, spaceBetweenSprites) {
+  let elem = document.getElementsByClassName(className);
+  for (let i = 0; i < elem.length; i++) {
+    sprite = elem[i]
+    start = 700 - (i * spaceBetweenSprites);
+    animation(sprite, start, speed)
+  }
+}
+
+carAnimation("fastCar", 10, 250)
+carAnimation("largeTruck", 30, 250);
 
 
 
