@@ -37,12 +37,13 @@ h1 {
 ///////
 
 .game {
-  display: flex;
-  justify-content: center;
+  position: relative;
+  width: 700px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 #background {
-  position: absolute;
   height: 700px;
   width: 700px;
 }
@@ -50,8 +51,17 @@ h1 {
 #frogger {
   height: 50px;
   width: 50px;
-  position: relative;
-  top: 0px;
+  position: absolute;
+  top: 50px;
   left: 300px;
-  transform: 180;
+  transform: rotate(180deg);
+}
+
+.largeTruck {
+  position: absolute;
+  top: 400px;
+  height: 45px;
+  width: 100px;
+  transform: rotate(180deg);
+  left: 0px;
 }
