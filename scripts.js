@@ -58,13 +58,13 @@ function animation(sprite, start, speed) {
     pos--;
     sprite.style.left = pos + "px";
 
-    if (pos == -100) {
+    if (pos == -50) {
       pos = 700;
     }
   }
 }
 
-function carAnimation(className, speed, spaceBetweenSprites) {
+function leftToRightAnimation(className, speed, spaceBetweenSprites) {
   let elem = document.getElementsByClassName(className);
   for (let i = 0; i < elem.length; i++) {
     sprite = elem[i]
@@ -73,8 +73,34 @@ function carAnimation(className, speed, spaceBetweenSprites) {
   }
 }
 
-carAnimation("fastCar", 10, 250)
-carAnimation("largeTruck", 30, 250);
+function rightToLeftAnimation(className, speed, spaceBetweenSprites) {
+  let elem = document.getElementsByClassName(className);
+  for (let i = 0; i < elem.length; i++) {
+    sprite = elem[i]
+    start = 0 + (i * spaceBetweenSprites);
+    reverseAnimation(sprite, start, speed)
+  }
+}
+
+function reverseAnimation(sprite, start, speed) {
+  sprite.style.left = start + 'px';
+  let pos = parseInt(sprite.style.left, 10);
+  let id = setInterval(frame, speed); //speed
+  function frame() {
+    pos++;
+    sprite.style.left = pos + "px";
+
+    if (pos == 750) {
+      pos = 0;
+    }
+  }
+}
+
+rightToLeftAnimation("slowCar2", 20, 250)
+leftToRightAnimation("largeTruck", 25, 350);
+leftToRightAnimation("slowCar", 25, 250);
+rightToLeftAnimation("copCar", 10, 500);
+leftToRightAnimation("fireTruck", 25, 500);
 
 
 

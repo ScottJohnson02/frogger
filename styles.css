@@ -46,10 +46,34 @@ body {
   left: 0px;
 }
 
-.fastCar {
+.slowCar {
   position: absolute;
   top: 600px;
   width: 50px;
+  transform: rotate(180deg);
+  left: 0px;
+}
+
+.slowCar2 {
+  position: absolute;
+  top: 550px;
+  width: 50px;
+  transform: rotate(0deg);
+  left: 0px;
+}
+
+.copCar {
+  position: absolute;
+  top: 450px;
+  width: 50px;
+  transform: rotate(0deg);
+  left: 0px;
+}
+
+.fireTruck {
+  position: absolute;
+  top: 500px;
+  width: 75px;
   transform: rotate(180deg);
   left: 0px;
 }
