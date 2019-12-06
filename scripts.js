@@ -50,6 +50,19 @@ window.addEventListener("keydown", event => {
 
 });
 
+function timer() {
+  let timeleft = 20;
+  let timer = setInterval(function() {
+    document.getElementById("second").innerHTML = timeleft + " seconds remaining";
+    timeleft -= 1;
+    if (timeleft <= 0) {
+      clearInterval(timer);
+      document.getElementById("second").innerHTML = "Out Of Time"
+    }
+  }, 1000);
+}
+
+
 function animation(sprite, start, speed) {
   sprite.style.left = start + 'px';
   let pos = parseInt(sprite.style.left, 10);
@@ -101,6 +114,7 @@ leftToRightAnimation("largeTruck", 25, 350);
 leftToRightAnimation("slowCar", 25, 250);
 rightToLeftAnimation("copCar", 10, 500);
 leftToRightAnimation("fireTruck", 25, 500);
+timer();
 
 
 

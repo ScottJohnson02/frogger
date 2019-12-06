@@ -1,6 +1,5 @@
-canvas {
-  background-color: black;
-  margin-top: 50px;
+body {
+  background-color: green;
 }
 
 h1 {
@@ -8,12 +7,34 @@ h1 {
   text-align: center;
 }
 
-body {
-  background-color: green;
+#timer {
+  display: inline-table;
+  text-align: center;
+  height: 20px;
+  width: 200px;
+  background: #777;
+  border-radius: 25px;
+  padding: 5px;
+  width: 50px;
+  position: absolute;
+  top: 100px;
 }
 
-.sidecover {
-  position: fixed;
+#timer div {
+  text-align: center;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+#timer span {
+  display: inline-block;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.text {
+  padding: 5px;
+  font-size: 16px;
 }
 
 .game {
