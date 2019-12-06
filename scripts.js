@@ -63,21 +63,7 @@ function timer() {
 }
 
 
-function animation(sprite, start, speed) {
-  sprite.style.left = start + 'px';
-  let pos = parseInt(sprite.style.left, 10);
-  let id = setInterval(frame, speed); //speed
-  function frame() {
-    pos--;
-    sprite.style.left = pos + "px";
-
-    if (pos == -50) {
-      pos = 700;
-    }
-  }
-}
-
-function leftToRightAnimation(className, speed, spaceBetweenSprites) {
+function rightToLeftAnimation(className, speed, spaceBetweenSprites) {
   let elem = document.getElementsByClassName(className);
   for (let i = 0; i < elem.length; i++) {
     sprite = elem[i]
@@ -86,7 +72,21 @@ function leftToRightAnimation(className, speed, spaceBetweenSprites) {
   }
 }
 
-function rightToLeftAnimation(className, speed, spaceBetweenSprites) {
+function animation(sprite, start, speed) {
+  sprite.style.left = start + 'px';
+  let pos = parseInt(sprite.style.left, 10);
+  let id = setInterval(frame, speed); //speed
+  function frame() {
+    pos--;
+    sprite.style.left = pos + "px";
+
+    if (pos == -parseInt((getComputedStyle(sprite).width), 10)) {
+      pos = 700;
+    }
+  }
+}
+
+function leftToRightAnimation(className, speed, spaceBetweenSprites) {
   let elem = document.getElementsByClassName(className);
   for (let i = 0; i < elem.length; i++) {
     sprite = elem[i]
@@ -103,18 +103,23 @@ function reverseAnimation(sprite, start, speed) {
     pos++;
     sprite.style.left = pos + "px";
 
-    if (pos == 750) {
-      pos = 0;
+    if (pos == 700) {
+      pos = -parseInt((getComputedStyle(sprite).width));
     }
   }
 }
-
-rightToLeftAnimation("slowCar2", 20, 250)
-leftToRightAnimation("largeTruck", 25, 350);
-leftToRightAnimation("slowCar", 25, 250);
-rightToLeftAnimation("copCar", 10, 500);
-leftToRightAnimation("fireTruck", 25, 500);
 timer();
+
+leftToRightAnimation("slowCar2", 20, 250)
+rightToLeftAnimation("largeTruck", 25, 350);
+rightToLeftAnimation("slowCar", 25, 250);
+leftToRightAnimation("copCar", 10, 500);
+rightToLeftAnimation("fireTruck", 25, 500);
+rightToLeftAnimation("longLog", 10, 500);
+leftToRightAnimation("smallLog", 10, 250);
+rightToLeftAnimation("mediumLog", 10, 300);
+leftToRightAnimation("threeturtles", 7, 450);
+rightToLeftAnimation("twoturtles", 7, 450);
 
 
 
