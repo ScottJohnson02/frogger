@@ -130,7 +130,7 @@ function checkFrogger() {
      document.getElementById('frogger');
       console.log("death");
     }else if(frogger.style.top==topPos && leftPos.includes(frogger.style.left)){
-
+      
       deathPos.push(frogger.style.left)
       console.log(frogger.style.left)
       console.log(deathPos)
