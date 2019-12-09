@@ -113,10 +113,11 @@ function reverseAnimation(sprite, start, speed) {
   }
 }
 
+//Frogger Position checker
 let topPos="45px";
 let leftPos= ["25px", "175px", "325px", "475px", "625px"];
 let deathPos= ["100px", "250px", "400px", "550px"];
-//Frogger Position checker
+
 function checkFrogger() {
   let img = document.createElement('img');
   img.src = 'images/frog.png';
