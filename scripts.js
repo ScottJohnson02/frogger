@@ -54,19 +54,27 @@ window.addEventListener("keydown", event => {
 
 });
 
-//timer
-function timer(){
+function timer() {
   let timeleft = 20;
-  let timer = setInterval(function(){
+  let timer = setInterval(function() {
     document.getElementById("second").innerHTML = timeleft + " seconds remaining";
     timeleft -= 1;
-    if(timeleft <= 0){
+    if (timeleft <= 0) {
       clearInterval(timer);
       document.getElementById("second").innerHTML = "Out Of Time"
     }
   }, 1000);
 }
 
+
+function rightToLeftAnimation(className, speed, spaceBetweenSprites) {
+  let elem = document.getElementsByClassName(className);
+  for (let i = 0; i < elem.length; i++) {
+    sprite = elem[i]
+    start = 700 - (i * spaceBetweenSprites);
+    animation(sprite, start, speed)
+  }
+}
 
 function animation(sprite, start, speed) {
   sprite.style.left = start + 'px';
@@ -76,19 +84,32 @@ function animation(sprite, start, speed) {
     pos--;
     sprite.style.left = pos + "px";
 
-    if (pos == -100) {
+    if (pos == -parseInt((getComputedStyle(sprite).width), 10)) {
       pos = 700;
     }
   }
 }
 
-
-function carAnimation(className, speed, spaceBetweenSprites) {
+function leftToRightAnimation(className, speed, spaceBetweenSprites) {
   let elem = document.getElementsByClassName(className);
   for (let i = 0; i < elem.length; i++) {
     sprite = elem[i]
-    start = 700 - (i * spaceBetweenSprites);
-    animation(sprite, start, speed)
+    start = 0 + (i * spaceBetweenSprites);
+    reverseAnimation(sprite, start, speed)
+  }
+}
+
+function reverseAnimation(sprite, start, speed) {
+  sprite.style.left = start + 'px';
+  let pos = parseInt(sprite.style.left, 10);
+  let id = setInterval(frame, speed); //speed
+  function frame() {
+    pos++;
+    sprite.style.left = pos + "px";
+
+    if (pos == 700) {
+      pos = -parseInt((getComputedStyle(sprite).width));
+    }
   }
 }
 
@@ -108,7 +129,7 @@ function checkFrogger() {
      document.getElementById('frogger');
       console.log("death");
     }else if(frogger.style.top==topPos && leftPos.includes(frogger.style.left)){
-      
+
       deathPos.push(frogger.style.left)
       console.log(frogger.style.left)
       console.log(deathPos)
@@ -124,8 +145,17 @@ function checkFrogger() {
 
 
 timer();
-carAnimation("fastCar", 10, 250);
-carAnimation("largeTruck", 30, 250);
+leftToRightAnimation("slowCar2", 20, 250)
+rightToLeftAnimation("largeTruck", 25, 350);
+rightToLeftAnimation("slowCar", 25, 250);
+leftToRightAnimation("copCar", 10, 500);
+rightToLeftAnimation("fireTruck", 25, 500);
+rightToLeftAnimation("longLog", 10, 500);
+leftToRightAnimation("smallLog", 10, 250);
+rightToLeftAnimation("mediumLog", 10, 300);
+leftToRightAnimation("threeturtles", 7, 450);
+rightToLeftAnimation("twoturtles", 7, 450);
+
 
 
 
