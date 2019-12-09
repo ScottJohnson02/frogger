@@ -18,6 +18,7 @@ window.addEventListener("keydown", event => {
       if (froggerY > 0) {
         froggerY = froggerY - 50;
         updateFroggerPosition()
+        checkFrogger()
         break;
       }
       break;
@@ -27,6 +28,7 @@ window.addEventListener("keydown", event => {
       if (froggerX > 25) {
         froggerX = froggerX - 75;
         updateFroggerPosition()
+        checkFrogger()
       }
       break;
     case "s":
@@ -34,6 +36,7 @@ window.addEventListener("keydown", event => {
       if (froggerY < 645) {
         froggerY = froggerY + 50;
         updateFroggerPosition()
+        checkFrogger()
         break
       }
 
@@ -43,12 +46,15 @@ window.addEventListener("keydown", event => {
       if (froggerX < 625) {
         froggerX = froggerX + 75;
         updateFroggerPosition()
+        checkFrogger()
         break
       }
       break;
   }
 
 });
+
+//timer
 function timer(){
   let timeleft = 20;
   let timer = setInterval(function(){
@@ -85,8 +91,40 @@ function carAnimation(className, speed, spaceBetweenSprites) {
     animation(sprite, start, speed)
   }
 }
+
+let topPos="45px";
+let leftPos= ["25px", "175px", "325px", "475px", "625px"];
+let deathPos= ["100px", "250px", "400px", "550px"];
+//Frogger Position checker
+function checkFrogger() {
+  let img = document.createElement('img');
+  img.src = 'images/frog.png';
+
+   if (frogger.style.top==topPos && deathPos.includes(frogger.style.left)) {
+     froggerY = 645;
+     frogger.style.top = froggerY + "px";
+     froggerX = 325;
+     frogger.style.left = froggerX + "px";
+     document.getElementById('frogger');
+      console.log("death");
+    }else if(frogger.style.top==topPos && leftPos.includes(frogger.style.left)){
+      
+      deathPos.push(frogger.style.left)
+      console.log(frogger.style.left)
+      console.log(deathPos)
+      froggerY = 645;
+      frogger.style.top = froggerY + "px";
+      froggerX = 325;
+      frogger.style.left = froggerX + "px";
+      console.log("won");
+
+    }
+}
+
+
+
 timer();
-carAnimation("fastCar", 10, 250)
+carAnimation("fastCar", 10, 250);
 carAnimation("largeTruck", 30, 250);
 
 
