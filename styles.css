@@ -37,7 +37,7 @@ h1 {
   font-size: 16px;
 }
 
-.game {
+#game {
   position: relative;
   width: 700px;
   margin: 0 auto;
@@ -70,7 +70,7 @@ h1 {
 .slowCar {
   position: absolute;
   top: 600px;
-  width: 50px;
+  width: 49px;
   transform: rotate(180deg);
   left: 0px;
 }

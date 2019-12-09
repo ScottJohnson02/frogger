@@ -79,6 +79,18 @@ function animation(sprite, start, speed) {
   function frame() {
     pos--;
     sprite.style.left = pos + "px";
+    if (parseInt(sprite.style.left, 10) >= parseInt(frogger.style.left, 10) - parseInt(getComputedStyle(sprite).width, 10) && parseInt(sprite.style.left) <= parseInt(frogger.style.left, 10) + parseInt(getComputedStyle(sprite).width, 10) / 2 && parseInt(getComputedStyle(sprite).top, 10) == froggerY + 5) {
+      console.log("sprite left position: " + sprite.style.left)
+      console.log(parseInt(frogger.style.left, 10) - 35)
+      console.log((sprite.style.left >= parseInt(frogger.style.left, 10) - parseInt((getComputedStyle(sprite).width, 10)) + "px"))
+      console.log(parseInt(frogger.style.left, 10) + 35)
+      console.log(sprite.style.left <= parseInt(frogger.style.left, 10) + parseInt((getComputedStyle(sprite).width, 10)) + "px")
+
+
+      froggerY = 645;
+      froggerX = 325;
+      updateFroggerPosition()
+    }
 
     if (pos == -parseInt((getComputedStyle(sprite).width), 10)) {
       pos = 700;
@@ -102,14 +114,30 @@ function reverseAnimation(sprite, start, speed) {
   function frame() {
     pos++;
     sprite.style.left = pos + "px";
+    if (parseInt(sprite.style.left, 10) >= parseInt(frogger.style.left, 10) - parseInt(getComputedStyle(sprite).width, 10) + 10 && parseInt(sprite.style.left) <= parseInt(frogger.style.left, 10) + parseInt(getComputedStyle(sprite).width, 10) - 10 && parseInt(getComputedStyle(sprite).top, 10) == froggerY + 5) {
+      console.log("sprite left position: " + sprite.style.left)
+      console.log(parseInt(frogger.style.left, 10) - 35)
+      console.log((sprite.style.left >= parseInt(frogger.style.left, 10) - parseInt((getComputedStyle(sprite).width, 10)) + "px"))
+      console.log(parseInt(frogger.style.left, 10) + 35)
+      console.log(sprite.style.left <= parseInt(frogger.style.left, 10) + parseInt((getComputedStyle(sprite).width, 10)) + "px")
 
+
+      froggerY = 645;
+      froggerX = 325;
+      updateFroggerPosition()
+
+
+    }
     if (pos == 700) {
       pos = -parseInt((getComputedStyle(sprite).width));
     }
   }
 }
-timer();
 
+//windowsize > 500 && windowsize < 600
+
+
+timer();
 leftToRightAnimation("slowCar2", 20, 250)
 rightToLeftAnimation("largeTruck", 25, 350);
 rightToLeftAnimation("slowCar", 25, 250);
@@ -120,6 +148,7 @@ leftToRightAnimation("smallLog", 10, 250);
 rightToLeftAnimation("mediumLog", 10, 300);
 leftToRightAnimation("threeturtles", 7, 450);
 rightToLeftAnimation("twoturtles", 7, 450);
+
 
 
 
