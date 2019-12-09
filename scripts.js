@@ -83,6 +83,18 @@ function animation(sprite, start, speed) {
   function frame() {
     pos--;
     sprite.style.left = pos + "px";
+    if (parseInt(sprite.style.left, 10) >= parseInt(frogger.style.left, 10) - parseInt(getComputedStyle(sprite).width, 10) && parseInt(sprite.style.left) <= parseInt(frogger.style.left, 10) + parseInt(getComputedStyle(sprite).width, 10) / 2 && parseInt(getComputedStyle(sprite).top, 10) == froggerY + 5) {
+      console.log("sprite left position: " + sprite.style.left)
+      console.log(parseInt(frogger.style.left, 10) - 35)
+      console.log((sprite.style.left >= parseInt(frogger.style.left, 10) - parseInt((getComputedStyle(sprite).width, 10)) + "px"))
+      console.log(parseInt(frogger.style.left, 10) + 35)
+      console.log(sprite.style.left <= parseInt(frogger.style.left, 10) + parseInt((getComputedStyle(sprite).width, 10)) + "px")
+
+
+      froggerY = 645;
+      froggerX = 325;
+      updateFroggerPosition()
+    }
 
     if (pos == -parseInt((getComputedStyle(sprite).width), 10)) {
       pos = 700;
@@ -106,44 +118,51 @@ function reverseAnimation(sprite, start, speed) {
   function frame() {
     pos++;
     sprite.style.left = pos + "px";
+    if (parseInt(sprite.style.left, 10) >= parseInt(frogger.style.left, 10) - parseInt(getComputedStyle(sprite).width, 10) + 10 && parseInt(sprite.style.left) <= parseInt(frogger.style.left, 10) + parseInt(getComputedStyle(sprite).width, 10) - 10 && parseInt(getComputedStyle(sprite).top, 10) == froggerY + 5) {
+      console.log("sprite left position: " + sprite.style.left)
+      console.log(parseInt(frogger.style.left, 10) - 35)
+      console.log((sprite.style.left >= parseInt(frogger.style.left, 10) - parseInt((getComputedStyle(sprite).width, 10)) + "px"))
+      console.log(parseInt(frogger.style.left, 10) + 35)
+      console.log(sprite.style.left <= parseInt(frogger.style.left, 10) + parseInt((getComputedStyle(sprite).width, 10)) + "px")
 
+
+      froggerY = 645;
+      froggerX = 325;
+      updateFroggerPosition()
+
+
+    }
     if (pos == 700) {
       pos = -parseInt((getComputedStyle(sprite).width));
     }
   }
 }
 
-//Frogger Position checker
-let topPos="45px";
-let leftPos= ["25px", "175px", "325px", "475px", "625px"];
-let deathPos= ["100px", "250px", "400px", "550px"];
+let topPos = "45px";
+let leftPos = ["25px", "175px", "325px", "475px", "625px"];
+let deathPos = ["100px", "250px", "400px", "550px"];
 
 function checkFrogger() {
   let img = document.createElement('img');
   img.src = 'images/frog.png';
-
-   if (frogger.style.top==topPos && deathPos.includes(frogger.style.left)) {
-     froggerY = 645;
-     frogger.style.top = froggerY + "px";
-     froggerX = 325;
-     frogger.style.left = froggerX + "px";
-     document.getElementById('frogger');
-      console.log("death");
-    }else if(frogger.style.top==topPos && leftPos.includes(frogger.style.left)){
-      
-      deathPos.push(frogger.style.left)
-      console.log(frogger.style.left)
-      console.log(deathPos)
-      froggerY = 645;
-      frogger.style.top = froggerY + "px";
-      froggerX = 325;
-      frogger.style.left = froggerX + "px";
-      console.log("won");
-
-    }
+  if (frogger.style.top == topPos && deathPos.includes(frogger.style.left)) {
+    froggerY = 645;
+    frogger.style.top = froggerY + "px";
+    froggerX = 325;
+    frogger.style.left = froggerX + "px";
+    document.getElementById('frogger');
+    console.log("death");
+  } else if (frogger.style.top == topPos && leftPos.includes(frogger.style.left)) {
+    deathPos.push(frogger.style.left)
+    console.log(frogger.style.left)
+    console.log(deathPos)
+    froggerY = 645;
+    frogger.style.top = froggerY + "px";
+    froggerX = 325;
+    frogger.style.left = froggerX + "px";
+    console.log("won");
+  }
 }
-
-
 
 timer();
 leftToRightAnimation("slowCar2", 20, 250)
