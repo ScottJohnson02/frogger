@@ -9,6 +9,12 @@ function updateFroggerPosition() {
   frogger.style.top = froggerY + "px";
 }
 
+//const finalFrog = document.getElementById('finalFrog1')
+//let finalFrogY = 45;
+//finalFrog.style.top = finalFrogY + "px";
+//let finalFrogX = [25, 175, 325, 475, 625]
+//finalFrog.style.left = finalFrogX + "px";
+
 
 window.addEventListener("keydown", event => {
   let button = event.key;
@@ -142,9 +148,13 @@ let topPos = "45px";
 let leftPos = ["25px", "175px", "325px", "475px", "625px"];
 let deathPos = ["100px", "250px", "400px", "550px"];
 
+document.getElementById('finalFrog1').style.display = "none";
+document.getElementById('finalFrog2').style.display = "none";
+document.getElementById('finalFrog3').style.display = "none";
+document.getElementById('finalFrog4').style.display = "none";
+document.getElementById('finalFrog5').style.display = "none";
+
 function checkFrogger() {
-  let img = document.createElement('img');
-  img.src = 'images/frog.png';
   if (frogger.style.top == topPos && deathPos.includes(frogger.style.left)) {
     froggerY = 645;
     frogger.style.top = froggerY + "px";
@@ -160,7 +170,22 @@ function checkFrogger() {
     frogger.style.top = froggerY + "px";
     froggerX = 325;
     frogger.style.left = froggerX + "px";
+    document.getElementById('finalFrog1').style.display = "block";
+    document.getElementById('finalFrog2').style.display = "block";
+    document.getElementById('finalFrog3').style.display = "block";
+    document.getElementById('finalFrog4').style.display = "block";
+    document.getElementById('finalFrog5').style.display = "block";
     console.log("won");
+  }else if (frogger.style.top == topPos && leftPos["25px"]) {
+    document.getElementById('finalFrog1').style.display = "block";
+  }else if (frogger.style.top == topPos && leftPos["175px"]) {
+    document.getElementById('finalFrog2').style.display = "block";
+  }else if (frogger.style.top == topPos && leftPos["325px"]) {
+    document.getElementById('finalFrog3').style.display = "block";
+  }else if (frogger.style.top == topPos && leftPos["475px"]) {
+    document.getElementById('finalFrog4').style.display = "block";
+  }else if (frogger.style.top == topPos && leftPos["625px"]) {
+    document.getElementById('finalFrog5').style.display = "block";
   }
 }
 
