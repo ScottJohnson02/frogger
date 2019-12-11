@@ -15,7 +15,6 @@ function updateFroggerPosition() {
 //let finalFrogX = [25, 175, 325, 475, 625]
 //finalFrog.style.left = finalFrogX + "px";
 
-
 window.addEventListener("keydown", event => {
   let button = event.key;
   switch (button) {
@@ -70,8 +69,7 @@ function timer() {
       document.getElementById("second").innerHTML = "Out Of Time"
     }
   }, 1000);
-}
-
+},
 
 function rightToLeftAnimation(className, speed, spaceBetweenSprites) {
   let elem = document.getElementsByClassName(className);
