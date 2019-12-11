@@ -143,3 +143,37 @@ h1 {
   transform: rotate(180deg);
   left: 0px;
 }
+#finalFrog1 {
+  position: absolute;
+  top: 45px;
+  transform: rotate(180deg);
+  left: 25px;
+}
+
+#finalFrog2 {
+  position: absolute;
+  top: 45px;
+  transform: rotate(180deg);
+  left: 175px;
+}
+
+#finalFrog3 {
+  position: absolute;
+  top: 45px;
+  transform: rotate(180deg);
+  left: 325px;
+}
+
+#finalFrog4 {
+  position: absolute;
+  top: 45px;
+  transform: rotate(180deg);
+  left: 475px;
+}
+
+#finalFrog5 {
+  position: absolute;
+  top: 45px;
+  transform: rotate(180deg);
+  left: 625px;
+}
