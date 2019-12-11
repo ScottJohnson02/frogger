@@ -10,6 +10,8 @@ function updateFroggerPosition() {
 }
 let ridingSprite = "";
 
+let timeleft = 20;
+
 //const finalFrog = document.getElementById('finalFrog1')
 //let finalFrogY = 45;
 //finalFrog.style.top = finalFrogY + "px";
@@ -73,16 +75,20 @@ window.addEventListener("keydown", event => {
 });
 
 function timer() {
-  let timeleft = 20;
-  let timer = setInterval(function() {
+  let clock = setInterval(function() {
     document.getElementById("second").innerHTML = timeleft + " seconds remaining";
     timeleft -= 1;
     if (timeleft <= 0) {
-      clearInterval(timer);
-      document.getElementById("second").innerHTML = "Out Of Time"
+      timeleft=20;
+      clearInterval(clock);
+      document.getElementById("second").innerHTML = "Out Of Time";
+      froggerY = 645;
+      froggerX = 325;
+      updateFroggerPosition()
+      timer()
     }
   }, 1000);
-},
+}
 
 function rightToLeftAnimation(className, speed, spaceBetweenSprites) {
   let elem = document.getElementsByClassName(className);
@@ -114,6 +120,7 @@ function animation(sprite, start, speed) {
       froggerY = 645;
       froggerX = 325;
       updateFroggerPosition()
+      timeleft = 20;
     }
 
     if (pos == -parseInt((getComputedStyle(sprite).width), 10)) {
@@ -145,7 +152,7 @@ function reverseAnimation(sprite, start, speed) {
       froggerY = 645;
       froggerX = 325;
       updateFroggerPosition()
-
+      timeleft = 20;
 
     }
     if (pos == 700) {
@@ -186,16 +193,6 @@ function checkFrogger() {
     document.getElementById('finalFrog4').style.display = "block";
     document.getElementById('finalFrog5').style.display = "block";
     console.log("won");
-  } else if (frogger.style.top == topPos && leftPos["25px"]) {
-    document.getElementById('finalFrog1').style.display = "block";
-  } else if (frogger.style.top == topPos && leftPos["175px"]) {
-    document.getElementById('finalFrog2').style.display = "block";
-  } else if (frogger.style.top == topPos && leftPos["325px"]) {
-    document.getElementById('finalFrog3').style.display = "block";
-  } else if (frogger.style.top == topPos && leftPos["475px"]) {
-    document.getElementById('finalFrog4').style.display = "block";
-  } else if (frogger.style.top == topPos && leftPos["625px"]) {
-    document.getElementById('finalFrog5').style.display = "block";
   }
 }
 
@@ -312,6 +309,7 @@ function checkWaterCollision() {
       froggerY = 645;
       froggerX = 325;
       updateFroggerPosition()
+      timeleft = 20;
       console.log("splash")
     }
   }
