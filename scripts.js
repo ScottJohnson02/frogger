@@ -8,6 +8,7 @@ function updateFroggerPosition() {
   frogger.style.left = froggerX + "px";
   frogger.style.top = froggerY + "px";
 }
+let ridingSprite = "";
 
 //const finalFrog = document.getElementById('finalFrog1')
 //let finalFrogY = 45;
@@ -21,9 +22,12 @@ window.addEventListener("keydown", event => {
     case "w":
       frogger.style.transform = "rotate(180deg)"
       if (froggerY > 0) {
+        ridingSprite = "";
         froggerY = froggerY - 50;
         updateFroggerPosition()
         checkFrogger()
+        checkLogCollision()
+        checkWaterCollision()
         break;
       }
       break;
@@ -31,17 +35,23 @@ window.addEventListener("keydown", event => {
     case "a":
       frogger.style.transform = "rotate(90deg)"
       if (froggerX > 25) {
+        ridingSprite = "";
         froggerX = froggerX - 75;
         updateFroggerPosition()
         checkFrogger()
+        checkWaterCollision()
+
       }
       break;
     case "s":
       frogger.style.transform = "rotate(0deg)"
       if (froggerY < 645) {
+        ridingSprite = "";
         froggerY = froggerY + 50;
         updateFroggerPosition()
         checkFrogger()
+        checkLogCollision()
+        checkWaterCollision()
         break
       }
 
@@ -49,9 +59,12 @@ window.addEventListener("keydown", event => {
     case "d":
       frogger.style.transform = "rotate(270deg)"
       if (froggerX < 625) {
+        ridingSprite = "";
         froggerX = froggerX + 75;
         updateFroggerPosition()
         checkFrogger()
+        checkWaterCollision()
+
         break
       }
       break;
@@ -83,10 +96,13 @@ function rightToLeftAnimation(className, speed, spaceBetweenSprites) {
 function animation(sprite, start, speed) {
   sprite.style.left = start + 'px';
   let pos = parseInt(sprite.style.left, 10);
-  let id = setInterval(frame, speed); //speed
+  let id = setInterval(frame, speed);
+  //speed
   function frame() {
     pos--;
     sprite.style.left = pos + "px";
+
+
     if (parseInt(sprite.style.left, 10) >= parseInt(frogger.style.left, 10) - parseInt(getComputedStyle(sprite).width, 10) && parseInt(sprite.style.left) <= parseInt(frogger.style.left, 10) + parseInt(getComputedStyle(sprite).width, 10) / 2 && parseInt(getComputedStyle(sprite).top, 10) == froggerY + 5) {
       console.log("sprite left position: " + sprite.style.left)
       console.log(parseInt(frogger.style.left, 10) - 35)
@@ -122,12 +138,8 @@ function reverseAnimation(sprite, start, speed) {
   function frame() {
     pos++;
     sprite.style.left = pos + "px";
+
     if (parseInt(sprite.style.left, 10) >= parseInt(frogger.style.left, 10) - parseInt(getComputedStyle(sprite).width, 10) + 10 && parseInt(sprite.style.left) <= parseInt(frogger.style.left, 10) + parseInt(getComputedStyle(sprite).width, 10) - 10 && parseInt(getComputedStyle(sprite).top, 10) == froggerY + 5) {
-      console.log("sprite left position: " + sprite.style.left)
-      console.log(parseInt(frogger.style.left, 10) - 35)
-      console.log((sprite.style.left >= parseInt(frogger.style.left, 10) - parseInt((getComputedStyle(sprite).width, 10)) + "px"))
-      console.log(parseInt(frogger.style.left, 10) + 35)
-      console.log(sprite.style.left <= parseInt(frogger.style.left, 10) + parseInt((getComputedStyle(sprite).width, 10)) + "px")
 
 
       froggerY = 645;
@@ -174,18 +186,139 @@ function checkFrogger() {
     document.getElementById('finalFrog4').style.display = "block";
     document.getElementById('finalFrog5').style.display = "block";
     console.log("won");
-  }else if (frogger.style.top == topPos && leftPos["25px"]) {
+  } else if (frogger.style.top == topPos && leftPos["25px"]) {
     document.getElementById('finalFrog1').style.display = "block";
-  }else if (frogger.style.top == topPos && leftPos["175px"]) {
+  } else if (frogger.style.top == topPos && leftPos["175px"]) {
     document.getElementById('finalFrog2').style.display = "block";
-  }else if (frogger.style.top == topPos && leftPos["325px"]) {
+  } else if (frogger.style.top == topPos && leftPos["325px"]) {
     document.getElementById('finalFrog3').style.display = "block";
-  }else if (frogger.style.top == topPos && leftPos["475px"]) {
+  } else if (frogger.style.top == topPos && leftPos["475px"]) {
     document.getElementById('finalFrog4').style.display = "block";
-  }else if (frogger.style.top == topPos && leftPos["625px"]) {
+  } else if (frogger.style.top == topPos && leftPos["625px"]) {
     document.getElementById('finalFrog5').style.display = "block";
   }
 }
+
+
+/*
+sprite.style.left = start + 'px';
+let pos = parseInt(sprite.style.left, 10);
+let id = setInterval(frame, speed); //speed
+function frame() {
+  pos++;
+  sprite.style.left = pos + "px";
+
+*/
+function LogFloatLeftToRight(sprite, speed) {
+  let pos = parseInt(frogger.style.left, 10)
+  let id = setInterval(frame, speed);
+
+
+
+  function frame() {
+    let pos = parseInt(frogger.style.left, 10)
+    pos++;
+    froggerX = pos;
+    updateFroggerPosition();
+    if (froggerX == 650) {
+      clearInterval(id)
+      froggerX = 325;
+      frogger.style.left = froggerX + "px";
+      froggerY = 645;
+      frogger.style.top = froggerY + "px";
+      updateFroggerPosition()
+    } else if (parseInt(getComputedStyle(sprite).top, 10) != froggerY - 5) {
+      if (froggerY == 645) {
+        clearInterval(id)
+        froggerX = 325
+      }
+      clearInterval(id)
+      updateFroggerPosition()
+    }
+  }
+}
+
+
+function LogFloatRightToLeft(sprite, speed) {
+  let id = setInterval(frame, speed);
+  let pos = parseInt(frogger.style.left, 10)
+
+  function frame() {
+    let pos = parseInt(frogger.style.left, 10)
+    pos--;
+    froggerX = pos;
+    updateFroggerPosition();
+    if (froggerX == 0) {
+      clearInterval(id)
+      froggerY = 645;
+      froggerX = 325;
+      updateFroggerPosition()
+    } else if (parseInt(getComputedStyle(sprite).top, 10) != froggerY - 5) {
+      if (froggerY == 645) {
+        froggerX = 325
+      }
+      clearInterval(id)
+      updateFroggerPosition()
+    }
+  }
+}
+//  if (parseInt(sprite.style.left, 10) >= parseInt(frogger.style.left, 10) - parseInt(getComputedStyle(sprite).width, 10) + 10 && parseInt(sprite.style.left) <= parseInt(frogger.style.left, 10) + parseInt(getComputedStyle(sprite).width, 10) - 10 && parseInt(getComputedStyle(sprite).top, 10) == froggerY + 5)
+
+function checkLogCollision() {
+  let elem = document.getElementsByClassName("float")
+  for (let i = 0; i < elem.length; i++) {
+    sprite = elem[i]
+
+
+    if (parseInt(frogger.style.left, 10) >= (parseInt(sprite.style.left, 10) - 5) && parseInt(frogger.style.left, 10) <= (parseInt(sprite.style.left) + parseInt(getComputedStyle(sprite).width, 10)) && parseInt(getComputedStyle(sprite).top, 10) == froggerY - 5) {
+      ridingSprite = sprite;
+      if (sprite.className.includes("longLog") || sprite.className.includes("twoturtles") || sprite.className.includes("mediumLog")) {
+
+        if (sprite.className.includes("twoturtles")) {
+
+          LogFloatRightToLeft(sprite, turtleSpeed)
+        } else {
+
+          LogFloatRightToLeft(sprite, logSpeed)
+        }
+        console.log('going left')
+
+      } else {
+        if (sprite.className.includes("threeturtles")) {
+          LogFloatLeftToRight(sprite, turtleSpeed)
+        } else {
+          LogFloatLeftToRight(sprite, logSpeed)
+        }
+        console.log('going right')
+      }
+
+    }
+  }
+}
+
+
+function checkWaterCollision() {
+  let elem = document.getElementsByClassName("float")
+  for (let i = 0; i < elem.length; i++) {
+    sprite = elem[i]
+    if (parseInt(frogger.style.left, 10) >= (parseInt(sprite.style.left, 10) - 5) && parseInt(frogger.style.left, 10) <= (parseInt(sprite.style.left) + parseInt(getComputedStyle(sprite).width, 10)) && parseInt(getComputedStyle(sprite).top, 10) == froggerY - 5) {
+      ridingSprite = sprite;
+    }
+  }
+  if (45 < froggerY && froggerY < 345) {
+    console.log("in da water")
+    console.log(froggerY)
+    if (ridingSprite == "") {
+      froggerY = 645;
+      froggerX = 325;
+      updateFroggerPosition()
+      console.log("splash")
+    }
+  }
+
+}
+let turtleSpeed = 7;
+let logSpeed = 10;
 
 timer();
 leftToRightAnimation("slowCar2", 20, 250)
@@ -193,100 +326,8 @@ rightToLeftAnimation("largeTruck", 25, 350);
 rightToLeftAnimation("slowCar", 25, 250);
 leftToRightAnimation("copCar", 10, 500);
 rightToLeftAnimation("fireTruck", 25, 500);
-rightToLeftAnimation("longLog", 10, 500);
-leftToRightAnimation("smallLog", 10, 250);
-rightToLeftAnimation("mediumLog", 10, 300);
-leftToRightAnimation("threeturtles", 7, 450);
-rightToLeftAnimation("twoturtles", 7, 450);
-
-
-
-
-
-
-
-// IDEA: BOTTOM IS OUTDATED CANVAS IDEAS
-/* const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-
-
-function drawBackground() {
-
-  //grass
-  ctx.fillStyle = 'lime';
-  ctx.fillRect(0, 350, 700, 50);
-  ctx.fillRect(0, 200, 700, 50);
-  //roads
-  ctx.fillStyle = 'grey';
-  ctx.fillRect(0, 250, 700, 100)
-  ctx.fillStyle = 'white';
-  ctx.fillRect(0, 300, 700, 1)
-  //water
-  ctx.fillStyle = 'blue';
-  ctx.fillRect(0, 50, 700, 150)
-  //win area
-  ctx.fillStyle = 'lime';
-  ctx.fillRect(0, 0, 700, 50)
-  ctx.fillStyle = 'yellow';
-  ctx.fillRect((700 / 11), 0, (700 / 11), 50)
-  ctx.fillRect((700 / 11) * 3, 0, (700 / 11), 50)
-  ctx.fillRect((700 / 11) * 5, 0, (700 / 11), 50)
-  ctx.fillRect((700 / 11) * 7, 0, (700 / 11), 50)
-  ctx.fillRect((700 / 11) * 9, 0, (700 / 11), 50)
-  ctx.fillStyle = 'lime';
-  ctx.fillRect(0, 0, 700, 20)
-  //grid styles
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0, 50, 700, 1)
-  ctx.fillRect(0, 100, 700, 1)
-  ctx.fillRect(0, 150, 700, 1)
-  ctx.fillRect(0, 200, 700, 1)
-  ctx.fillRect(0, 250, 700, 1)
-  ctx.fillRect(0, 350, 700, 1)
-  ctx.fillRect(0, 400, 700, 1)
-}
-//frog sprite
-let frog = new Image();
-frog.src = "images/frog.png";
-let sx = 0;
-let sy = 0;
-let swidth = 50;
-let sheight = (700 / 11);
-let x = 10;
-let y = 350;
-let width = 50;
-let height = (700 / 11);
-
-
-function drawFrog() {
-  ctx.drawImage(frog, sx, sy, swidth, sheight, x, y, width, height);
-}
-//player movement
-window.addEventListener("keydown", event => {
-  let button = event.key;
-  switch (button) {
-    case "w":
-      y = y - 50;
-      break;
-    case "a":
-      x = x - (700 / 11);
-      break;
-    case "s":
-      y = y + 50;
-      break;
-    case "d":
-      x = x + (700 / 11);
-      break;
-  }
-});
-});
-
-
-
-function draw() {
-  drawBackground();
-  drawFrog();
-  requestAnimationFrame(draw);
-}
-draw();
-*/
+rightToLeftAnimation("longLog", logSpeed, 500);
+leftToRightAnimation("smallLog", logSpeed, 250);
+rightToLeftAnimation("mediumLog", logSpeed, 300);
+leftToRightAnimation("threeturtles", turtleSpeed, 450);
+rightToLeftAnimation("twoturtles", turtleSpeed, 450);
