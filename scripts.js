@@ -9,6 +9,41 @@ function updateFroggerPosition() {
   frogger.style.top = froggerY + "px";
 }
 let ridingSprite = "";
+document.getElementById('finalFrog1').style.display = "none";
+document.getElementById('finalFrog2').style.display = "none";
+document.getElementById('finalFrog3').style.display = "none";
+document.getElementById('finalFrog4').style.display = "none";
+document.getElementById('finalFrog5').style.display = "none";
+
+function range(x, y, z) {
+  result = [];
+  if (x < y) {
+    for (; x <= y; x++) {
+      if (z != undefined) {
+        if (x % z == 0) {
+          result.push(x)
+        }
+      } else {
+        result.push(x)
+      }
+    }
+
+  } else {
+    for (; y <= x; y++) {
+      if (z != undefined) {
+        if (y % z == 0) {
+          result.push(y)
+        }
+      } else {
+        result.push(y)
+      }
+    }
+  }
+  if (z < 0) {
+    result.reverse()
+  }
+  return result;
+}
 
 //const finalFrog = document.getElementById('finalFrog1')
 //let finalFrogY = 45;
@@ -25,6 +60,7 @@ window.addEventListener("keydown", event => {
       if (froggerY > 0) {
         ridingSprite = "";
         froggerY = froggerY - 50;
+        addScore(10)
         updateFroggerPosition()
         checkFrogger()
         checkLogCollision()
@@ -66,22 +102,28 @@ window.addEventListener("keydown", event => {
         checkFrogger()
         checkWaterCollision()
 
+
         break
       }
       break;
   }
 
 });
+let timeleft = 19;
 
 function timer() {
-  let timeleft = 20;
+
   let timer = setInterval(function() {
-    document.getElementById("second").innerHTML = timeleft + " seconds remaining";
-    timeleft -= 1;
-    if (timeleft <= 0) {
-      clearInterval(timer);
-      document.getElementById("second").innerHTML = "Out Of Time"
+
+    document.getElementById("second").innerHTML = "Sec: " + timeleft;
+    if (stopTimer == false) {
+      timeleft -= 1;
+      if (timeleft <= 0) {
+        death()
+        timeleft = 19
+      }
     }
+
   }, 1000);
 }
 
@@ -99,23 +141,19 @@ function animation(sprite, start, speed) {
   sprite.style.left = start + 'px';
   let pos = parseInt(sprite.style.left, 10);
   let id = setInterval(frame, speed);
-  //speed
+
+
   function frame() {
+    if (stopAnimation) {
+      clearInterval(id)
+    }
+
     pos--;
     sprite.style.left = pos + "px";
 
 
     if (parseInt(sprite.style.left, 10) >= parseInt(frogger.style.left, 10) - parseInt(getComputedStyle(sprite).width, 10) && parseInt(sprite.style.left) <= parseInt(frogger.style.left, 10) + parseInt(getComputedStyle(sprite).width, 10) / 2 && parseInt(getComputedStyle(sprite).top, 10) == froggerY + 5) {
-      console.log("sprite left position: " + sprite.style.left)
-      console.log(parseInt(frogger.style.left, 10) - 35)
-      console.log((sprite.style.left >= parseInt(frogger.style.left, 10) - parseInt((getComputedStyle(sprite).width, 10)) + "px"))
-      console.log(parseInt(frogger.style.left, 10) + 35)
-      console.log(sprite.style.left <= parseInt(frogger.style.left, 10) + parseInt((getComputedStyle(sprite).width, 10)) + "px")
-
-
-      froggerY = 645;
-      froggerX = 325;
-      updateFroggerPosition()
+      death()
     }
 
     if (pos == -parseInt((getComputedStyle(sprite).width), 10)) {
@@ -136,19 +174,18 @@ function leftToRightAnimation(className, speed, spaceBetweenSprites) {
 function reverseAnimation(sprite, start, speed) {
   sprite.style.left = start + 'px';
   let pos = parseInt(sprite.style.left, 10);
-  let id = setInterval(frame, speed); //speed
+  let id = setInterval(frame, speed);
+
+
   function frame() {
+    if (stopAnimation) {
+      clearInterval(id)
+    }
     pos++;
     sprite.style.left = pos + "px";
 
     if (parseInt(sprite.style.left, 10) >= parseInt(frogger.style.left, 10) - parseInt(getComputedStyle(sprite).width, 10) + 10 && parseInt(sprite.style.left) <= parseInt(frogger.style.left, 10) + parseInt(getComputedStyle(sprite).width, 10) - 10 && parseInt(getComputedStyle(sprite).top, 10) == froggerY + 5) {
-
-
-      froggerY = 645;
-      froggerX = 325;
-      updateFroggerPosition()
-
-
+      death()
     }
     if (pos == 700) {
       pos = -parseInt((getComputedStyle(sprite).width));
@@ -157,60 +194,58 @@ function reverseAnimation(sprite, start, speed) {
 }
 
 let topPos = "45px";
-let leftPos = ["25px", "175px", "325px", "475px", "625px"];
-let deathPos = ["100px", "250px", "400px", "550px"];
+let next = [range(5, 40), range(145, 205), range(295, 340), range(455, 505), range(600, 645)]
+let winPos = []
 
-document.getElementById('finalFrog1').style.display = "none";
-document.getElementById('finalFrog2').style.display = "none";
-document.getElementById('finalFrog3').style.display = "none";
-document.getElementById('finalFrog4').style.display = "none";
-document.getElementById('finalFrog5').style.display = "none";
 
+//froggerY
 function checkFrogger() {
-  if (frogger.style.top == topPos && deathPos.includes(frogger.style.left)) {
-    froggerY = 645;
-    frogger.style.top = froggerY + "px";
-    froggerX = 325;
-    frogger.style.left = froggerX + "px";
-    document.getElementById('frogger');
-    console.log("death");
-  } else if (frogger.style.top == topPos && leftPos.includes(frogger.style.left)) {
-    deathPos.push(frogger.style.left)
-    console.log(frogger.style.left)
-    console.log(deathPos)
-    froggerY = 645;
-    frogger.style.top = froggerY + "px";
-    froggerX = 325;
-    frogger.style.left = froggerX + "px";
-    document.getElementById('finalFrog1').style.display = "block";
-    document.getElementById('finalFrog2').style.display = "block";
-    document.getElementById('finalFrog3').style.display = "block";
-    document.getElementById('finalFrog4').style.display = "block";
-    document.getElementById('finalFrog5').style.display = "block";
-    console.log("won");
-  } else if (frogger.style.top == topPos && leftPos["25px"]) {
-    document.getElementById('finalFrog1').style.display = "block";
-  } else if (frogger.style.top == topPos && leftPos["175px"]) {
-    document.getElementById('finalFrog2').style.display = "block";
-  } else if (frogger.style.top == topPos && leftPos["325px"]) {
-    document.getElementById('finalFrog3').style.display = "block";
-  } else if (frogger.style.top == topPos && leftPos["475px"]) {
-    document.getElementById('finalFrog4').style.display = "block";
-  } else if (frogger.style.top == topPos && leftPos["625px"]) {
-    document.getElementById('finalFrog5').style.display = "block";
+  if (froggerY == 45) {
+    let check = 0
+    for (let i = 0; i < next.length; i++) {
+      if (next[i].includes(froggerX)) {
+        winPos.push(next[i])
+        next.splice(i, 1)
+        addScore(50 * timeleft)
+        if (range(5, 40).includes(froggerX)) {
+          document.getElementById('finalFrog1').style.display = "block";
+        } else if (range(145, 205).includes(froggerX)) {
+          document.getElementById('finalFrog2').style.display = "block";
+        } else if (range(295, 340).includes(froggerX)) {
+          document.getElementById('finalFrog3').style.display = "block";
+        } else if (range(455, 505).includes(froggerX)) {
+          document.getElementById('finalFrog4').style.display = "block";
+        } else if (range(600, 645).includes(froggerX)) {
+          document.getElementById('finalFrog5').style.display = "block";
+        }
+
+        froggerY = 645;
+        frogger.style.top = froggerY + "px";
+        froggerX = 325;
+        frogger.style.left = froggerX + "px";
+        timeleft = 20;
+        break;
+      } else {
+
+        check++;
+      }
+      if (check == next.length) {
+        death()
+      }
+    }
   }
+  if (next.length == 0) {
+    console.log('stage cleared')
+    stageClear()
+  }
+
 }
 
 
-/*
-sprite.style.left = start + 'px';
-let pos = parseInt(sprite.style.left, 10);
-let id = setInterval(frame, speed); //speed
-function frame() {
-  pos++;
-  sprite.style.left = pos + "px";
 
-*/
+
+
+
 function LogFloatLeftToRight(sprite, speed) {
   let pos = parseInt(frogger.style.left, 10)
   let id = setInterval(frame, speed);
@@ -223,11 +258,7 @@ function LogFloatLeftToRight(sprite, speed) {
     froggerX = pos;
     updateFroggerPosition();
     if (froggerX == 650) {
-      clearInterval(id)
-      froggerX = 325;
-      frogger.style.left = froggerX + "px";
-      froggerY = 645;
-      frogger.style.top = froggerY + "px";
+      death()
       updateFroggerPosition()
     } else if (parseInt(getComputedStyle(sprite).top, 10) != froggerY - 5) {
       if (froggerY == 645) {
@@ -245,6 +276,7 @@ function LogFloatRightToLeft(sprite, speed) {
   let id = setInterval(frame, speed);
   let pos = parseInt(frogger.style.left, 10)
 
+
   function frame() {
     let pos = parseInt(frogger.style.left, 10)
     pos--;
@@ -252,9 +284,7 @@ function LogFloatRightToLeft(sprite, speed) {
     updateFroggerPosition();
     if (froggerX == 0) {
       clearInterval(id)
-      froggerY = 645;
-      froggerX = 325;
-      updateFroggerPosition()
+      death()
     } else if (parseInt(getComputedStyle(sprite).top, 10) != froggerY - 5) {
       if (froggerY == 645) {
         froggerX = 325
@@ -264,7 +294,6 @@ function LogFloatRightToLeft(sprite, speed) {
     }
   }
 }
-//  if (parseInt(sprite.style.left, 10) >= parseInt(frogger.style.left, 10) - parseInt(getComputedStyle(sprite).width, 10) + 10 && parseInt(sprite.style.left) <= parseInt(frogger.style.left, 10) + parseInt(getComputedStyle(sprite).width, 10) - 10 && parseInt(getComputedStyle(sprite).top, 10) == froggerY + 5)
 
 function checkLogCollision() {
   let elem = document.getElementsByClassName("float")
@@ -311,23 +340,118 @@ function checkWaterCollision() {
     console.log("in da water")
     console.log(froggerY)
     if (ridingSprite == "") {
-      froggerY = 645;
-      froggerX = 325;
-      updateFroggerPosition()
-      console.log("splash")
+      death();
     }
   }
 
 }
+
+
+
+
+function death() {
+  lives--;
+  document.getElementById("lives").innerHTML = "LIVES: " + lives;
+  timeleft = 20;
+  if (lives == 0) {
+    document.getElementById('gameOver').style.display = "block";
+    stopAnimation = true
+    stopTimer = true;
+    document.getElementById('frogger').style.display = "none";
+
+  }
+  froggerY = 645;
+  froggerX = 325;
+  updateFroggerPosition()
+}
+
+function addScore(amount) {
+  score = score + amount;
+  document.getElementById("score").innerHTML = "Score: " + score;
+  if (score == 7500) {
+    lives++;
+  }
+}
+
+let stopAnimation = false;
+let lives = 3;
+let world = 1;
+let stage = 1;
+let score = 0;
 let turtleSpeed = 7;
 let logSpeed = 10;
+let firetruckSpeed = 25;
+let copCarSpeed = 10;
+let slowCarSpeed = 25;
+let slowCar2Speed = 20;
+let largeTruckSpeed = 25;
+document.getElementById("second").innerHTML = "Sec: " + 20;
+document.getElementById("lives").innerHTML = "LIVES: " + lives;
+document.getElementById("stage").innerHTML = "STAGE: " + world + " - " + stage;
+document.getElementById("score").innerHTML = "Score: " + score;
 
+
+
+function RESET() {
+  document.getElementById('reset').style.display = "none";
+  document.getElementById('finalFrog1').style.display = "none";
+  document.getElementById('finalFrog2').style.display = "none";
+  document.getElementById('finalFrog3').style.display = "none";
+  document.getElementById('finalFrog4').style.display = "none";
+  document.getElementById('finalFrog5').style.display = "none";
+  document.getElementById("stage").innerHTML = "STAGE: " + world + " - " + stage;
+
+  timeleft = 20;
+  stopAnimation = false;
+  leftToRightAnimation("slowCar2", slowCar2Speed, 250);
+  rightToLeftAnimation("largeTruck", largeTruckSpeed, 350);
+  rightToLeftAnimation("slowCar", slowCarSpeed, 250);
+  leftToRightAnimation("copCar", copCarSpeed, 500);
+  rightToLeftAnimation("fireTruck", firetruckSpeed, 500);
+  rightToLeftAnimation("longLog", logSpeed, 500);
+  leftToRightAnimation("smallLog", logSpeed, 250);
+  rightToLeftAnimation("mediumLog", logSpeed, 300);
+  leftToRightAnimation("threeturtles", turtleSpeed, 450);
+  rightToLeftAnimation("twoturtles", turtleSpeed, 450);
+}
+
+function stageClear() {
+  document.getElementById('reset').style.display = "block";
+  stopAnimation = true;
+  stage++;
+  updateFroggerPosition()
+  if (stage % 4 == 0) {
+    stage = 1;
+    world++;
+  }
+  addScore(1000)
+  froggerY = 645;
+  froggerX = 325;
+  topPos = "45px";
+  next = [range(5, 40), range(145, 205), range(295, 340), range(455, 505), range(600, 645)]
+  winPos = []
+
+  turtleSpeed-- //= 7;
+  logSpeed-- //= 10;
+  firetruckSpeed = 4; //= 25;
+  copCarSpeed-- //= 10;
+  slowCarSpeed = slowCarSpeed - 2 //= 25;
+  slowCar2Speed = slowCar2Speed - 2 //= 20;
+  largeTruckSpeed = largeTruckSpeed - 2 //= 25;
+}
+
+function gameOver() {
+  window.location.reload();
+}
+
+document.getElementById('reset').style.display = "none";
+document.getElementById('gameOver').style.display = "none";
 timer();
-leftToRightAnimation("slowCar2", 20, 250)
-rightToLeftAnimation("largeTruck", 25, 350);
-rightToLeftAnimation("slowCar", 25, 250);
-leftToRightAnimation("copCar", 10, 500);
-rightToLeftAnimation("fireTruck", 25, 500);
+leftToRightAnimation("slowCar2", slowCar2Speed, 250);
+rightToLeftAnimation("largeTruck", largeTruckSpeed, 350);
+rightToLeftAnimation("slowCar", slowCarSpeed, 250);
+leftToRightAnimation("copCar", copCarSpeed, 500);
+rightToLeftAnimation("fireTruck", firetruckSpeed, 500);
 rightToLeftAnimation("longLog", logSpeed, 500);
 leftToRightAnimation("smallLog", logSpeed, 250);
 rightToLeftAnimation("mediumLog", logSpeed, 300);

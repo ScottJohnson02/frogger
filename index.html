@@ -15,6 +15,7 @@
 
   <div id="game">
 
+
     <img class="smallLog float" src=" images/smalllog.png" alt="log">
     <img class="smallLog float" src=" images/smalllog.png" alt="log">
     <img class="smallLog float" src=" images/smalllog.png" alt="log">
@@ -48,6 +49,9 @@
     <img class="copCar" src=" images/greencar.png" alt="slow car">
     <img class="fireTruck" src=" images/mediumtruck.png" alt="slow car">
     <img class="fireTruck" src=" images/mediumtruck.png" alt="slow car">
+    <button id="reset" onclick="RESET()"> Click Here To Move On</button>
+    <button id="gameOver" onclick="gameOver()"> Click to try again</button>
+
 
 
   </div>
@@ -56,8 +60,12 @@
     <div>
       <div class="text">Time left:</div>
       <span class="seconds" id="second"></span>
+      <p id="stage">Stage: </p>
+      <p id="lives">Lives: </p>
+      <p id="score">Score: </p>
     </div>
   </div>
+
 
 </body>
 
