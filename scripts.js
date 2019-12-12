@@ -45,11 +45,6 @@ function range(x, y, z) {
   return result;
 }
 
-//const finalFrog = document.getElementById('finalFrog1')
-//let finalFrogY = 45;
-//finalFrog.style.top = finalFrogY + "px";
-//let finalFrogX = [25, 175, 325, 475, 625]
-//finalFrog.style.left = finalFrogX + "px";
 
 
 window.addEventListener("keydown", event => {
@@ -126,7 +121,6 @@ function timer() {
 
   }, 1000);
 }
-
 
 function rightToLeftAnimation(className, speed, spaceBetweenSprites) {
   let elem = document.getElementsByClassName(className);
@@ -367,9 +361,11 @@ function death() {
 
 function addScore(amount) {
   score = score + amount;
+  let checker = score;
   document.getElementById("score").innerHTML = "Score: " + score;
-  if (score == 7500) {
-    lives++;
+  if (checker == 7500) {
+    lives = lives + 1;
+    document.getElementById("lives").innerHTML = "LIVES: " + lives;
   }
 }
 
@@ -443,7 +439,7 @@ function stageClear() {
 function gameOver() {
   window.location.reload();
 }
-
+let stopTimer = false
 document.getElementById('reset').style.display = "none";
 document.getElementById('gameOver').style.display = "none";
 timer();
