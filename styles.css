@@ -188,8 +188,23 @@ h1 {
 
 #gameOver {
   position: absolute;
-  top: 300px;
+  top: 190px;
   width: 200px;
   left: 260px;
   height: 150px;
+}
+
+#continue {
+  position: absolute;
+  top: 348px;
+  width: 200px;
+  left: 260px;
+  height: 150px;
+}
+
+#start {
+  position: absolute;
+  top: 550px;
+  left: 300px;
+  width: 100px;
 }

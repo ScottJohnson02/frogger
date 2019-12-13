@@ -352,21 +352,24 @@ function death() {
     stopAnimation = true
     stopTimer = true;
     document.getElementById('frogger').style.display = "none";
+    document.getElementById('continue').style.display = "block";
 
   }
   froggerY = 645;
   froggerX = 325;
   updateFroggerPosition()
 }
+let counter = 1;
+let newLife = 8500
 
 function addScore(amount) {
   score = score + amount;
-  let checker = score;
-  document.getElementById("score").innerHTML = "Score: " + score;
-  if (checker == 7500) {
+  if (score >= newLife * counter) {
     lives = lives + 1;
+    counter++;
     document.getElementById("lives").innerHTML = "LIVES: " + lives;
   }
+  document.getElementById("score").innerHTML = "Score: " + score;
 }
 
 let stopAnimation = false;
@@ -419,6 +422,15 @@ function stageClear() {
   if (stage % 4 == 0) {
     stage = 1;
     world++;
+    if (world == 2) {
+      document.getElementById("background").src = "images/swamp.jpg"
+      document.body.style.backgroundColor = "rgb(169,100,22)" //R: 169 G: 100 B: 22
+      //#a96416
+    } else {
+      document.getElementById("background").src = "images/finalWorld.jpg"
+      document.body.style.backgroundColor = "rgb(112,112,115)" //R: 112 G: 112 B: 115
+      //background color #707073
+    }
   }
   addScore(1000)
   froggerY = 645;
@@ -439,17 +451,91 @@ function stageClear() {
 function gameOver() {
   window.location.reload();
 }
-let stopTimer = false
+
+function continueGame() {
+
+  document.getElementById('finalFrog1').style.display = "none";
+  document.getElementById('finalFrog2').style.display = "none";
+  document.getElementById('finalFrog3').style.display = "none";
+  document.getElementById('finalFrog4').style.display = "none";
+  document.getElementById('finalFrog5').style.display = "none";
+  document.getElementById('frogger').style.display = "block";
+  lives = 3;
+  counter = 1;
+  froggerY = 645;
+  froggerX = 325;
+  topPos = "45px";
+  next = [range(5, 40), range(145, 205), range(295, 340), range(455, 505), range(600, 645)]
+  winPos = []
+  stopAnimation = false;
+  stopTimer = false
+  score = 0;
+  document.getElementById("score").innerHTML = "Score: " + score;
+  document.getElementById("lives").innerHTML = "LIVES: " + lives;
+  document.getElementById('reset').style.display = "none";
+  document.getElementById('gameOver').style.display = "none";
+  document.getElementById('continue').style.display = "none";
+  leftToRightAnimation("slowCar2", slowCar2Speed, 250);
+  rightToLeftAnimation("largeTruck", largeTruckSpeed, 350);
+  rightToLeftAnimation("slowCar", slowCarSpeed, 250);
+  leftToRightAnimation("copCar", copCarSpeed, 500);
+  rightToLeftAnimation("fireTruck", firetruckSpeed, 500);
+  rightToLeftAnimation("longLog", logSpeed, 500);
+  leftToRightAnimation("smallLog", logSpeed, 250);
+  rightToLeftAnimation("mediumLog", logSpeed, 300);
+  leftToRightAnimation("threeturtles", turtleSpeed, 450);
+  rightToLeftAnimation("twoturtles", turtleSpeed, 450);
+}
+//document.getElementById("imageid").src="../template/save.png";
+let stopTimer = true
+
+function startGame() {
+  let gameElements = document.getElementById("gameElements")
+  let children = gameElements.children;
+  for (let i = 0; i < children.length; i++) {
+    let sprite = children[i]
+    console.log(children[i])
+    console.log(children[i].style.display = 'block')
+  }
+  stopTimer = false
+
+  document.getElementById('finalFrog1').style.display = "none";
+  document.getElementById('finalFrog2').style.display = "none";
+  document.getElementById('finalFrog3').style.display = "none";
+  document.getElementById('finalFrog4').style.display = "none";
+  document.getElementById('finalFrog5').style.display = "none";
+  document.getElementById('start').style.display = "none";
+  document.getElementById("background").src = "images/frogger_background";
+
+
+
+
+
+
+  timer();
+  leftToRightAnimation("slowCar2", slowCar2Speed, 250);
+  rightToLeftAnimation("largeTruck", largeTruckSpeed, 350);
+  rightToLeftAnimation("slowCar", slowCarSpeed, 250);
+  leftToRightAnimation("copCar", copCarSpeed, 500);
+  rightToLeftAnimation("fireTruck", firetruckSpeed, 500);
+  rightToLeftAnimation("longLog", logSpeed, 500);
+  leftToRightAnimation("smallLog", logSpeed, 250);
+  rightToLeftAnimation("mediumLog", logSpeed, 300);
+  leftToRightAnimation("threeturtles", turtleSpeed, 450);
+  rightToLeftAnimation("twoturtles", turtleSpeed, 450);
+
+}
+let gameElements = document.getElementById("gameElements")
+
+let children = gameElements.children;
+
+for (let i = 0; i < children.length; i++) {
+  let sprite = children[i]
+  console.log(children[i])
+  console.log(children[i].style.display = 'none')
+}
+
 document.getElementById('reset').style.display = "none";
 document.getElementById('gameOver').style.display = "none";
-timer();
-leftToRightAnimation("slowCar2", slowCar2Speed, 250);
-rightToLeftAnimation("largeTruck", largeTruckSpeed, 350);
-rightToLeftAnimation("slowCar", slowCarSpeed, 250);
-leftToRightAnimation("copCar", copCarSpeed, 500);
-rightToLeftAnimation("fireTruck", firetruckSpeed, 500);
-rightToLeftAnimation("longLog", logSpeed, 500);
-leftToRightAnimation("smallLog", logSpeed, 250);
-rightToLeftAnimation("mediumLog", logSpeed, 300);
-leftToRightAnimation("threeturtles", turtleSpeed, 450);
-rightToLeftAnimation("twoturtles", turtleSpeed, 450);
+document.getElementById('continue').style.display = "none";
+document.getElementById("background").src = "images/giphy.gif"
