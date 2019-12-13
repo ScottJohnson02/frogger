@@ -469,6 +469,7 @@ function continueGame() {
   winPos = []
   stopAnimation = false;
   stopTimer = false
+  updateFroggerPosition()
   score = 0;
   document.getElementById("score").innerHTML = "Score: " + score;
   document.getElementById("lives").innerHTML = "LIVES: " + lives;
